@@ -19,26 +19,10 @@
 <script>
 export default {
   name: 'Sidebar',
-  data() {
-    return {
-      types: [],
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.loadTypes()
-    })
-  },
-  methods: {
-    loadTypes() {
-      fetch('https://pokeapi.co/api/v2/type')
-        .then(res => {
-          return res.json()
-        })
-        .then(res => {
-          this.types = res.results
-        })
-        .catch(error => console.error(error))
+  props: {
+    types: {
+      type: Array,
+      default: () => []
     }
   }
 }

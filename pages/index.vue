@@ -1,8 +1,8 @@
 <template>
   <main class="container">
     <div class="rows">
-      <Sidebar @load-type="loadPokemonType"/>
-      <Section />
+      <Sidebar :types="types" @load-type="loadPokemonType"/>
+      <Section :list="pokeList"/>
     </div>
   </main>
 </template>
@@ -18,8 +18,14 @@ export default {
   },
   data() {
     return {
-      pokeList: []
+      pokeList: [],
+      types: []
     };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.loadTypes()
+    })
   },
   methods: {
     loadPokemonType(type) {
@@ -28,6 +34,16 @@ export default {
       .then((res)=>{
         this.pokeList = res.pokemon;
       })
+    },
+    loadTypes() {
+      fetch('https://pokeapi.co/api/v2/type')
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          this.types = res.results
+        })
+        .catch(error => console.error(error))
     }
   }
 }
