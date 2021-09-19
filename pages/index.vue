@@ -16,9 +16,18 @@ export default {
     Sidebar,
     Section,
   },
+  data() {
+    return {
+      pokeList: []
+    };
+  },
   methods: {
     loadPokemonType(type) {
-      console.log(type)
+      fetch(`https://pokeapi.co/api/v2/type/${type}`)
+      .then((res) => res.json())
+      .then((res)=>{
+        this.pokeList = res.pokemon;
+      })
     }
   }
 }
