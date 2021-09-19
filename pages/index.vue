@@ -1,7 +1,9 @@
 <template>
   <main class="container">
-    <Sidebar />
-    <Section />
+    <div class="rows">
+      <Sidebar />
+      <Section />
+    </div>
   </main>
 </template>
 
@@ -23,5 +25,8 @@ body {
 }
 .container {
   @apply mx-auto;
+}
+.rows {
+  @apply flex flex-row justify-between w-full
 }
 </style>
