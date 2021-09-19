@@ -1,7 +1,7 @@
 <template>
   <main class="container">
     <div class="rows">
-      <Sidebar />
+      <Sidebar @load-type="loadPokemonType"/>
       <Section />
     </div>
   </main>
@@ -15,6 +15,11 @@ export default {
   components: {
     Sidebar,
     Section,
+  },
+  methods: {
+    loadPokemonType(type) {
+      console.log(type)
+    }
   }
 }
 </script>

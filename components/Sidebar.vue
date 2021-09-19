@@ -4,11 +4,11 @@
     <div>
       <ul>
         <li
-          v-for="ability in abilities"
-          :key="ability.name"
+          v-for="type in types"
+          :key="type.name"
         >
-          <button>
-            {{ability.name}}
+          <button @click="$emit('load-type', type.name)">
+            {{type.name}}
           </button>
         </li>
       </ul>
@@ -21,7 +21,7 @@ export default {
   name: 'Sidebar',
   data() {
     return {
-      abilities: [],
+      types: [],
     }
   },
   mounted() {
@@ -31,12 +31,12 @@ export default {
   },
   methods: {
     loadTypes() {
-      fetch('https://pokeapi.co/api/v2/ability')
+      fetch('https://pokeapi.co/api/v2/type')
         .then(res => {
           return res.json()
         })
         .then(res => {
-          this.abilities = res.results
+          this.types = res.results
         })
         .catch(error => console.error(error))
     }
