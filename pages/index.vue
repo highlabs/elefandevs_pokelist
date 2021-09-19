@@ -18,6 +18,9 @@ export default {
 </script>
 
 <style lang="postcss">
+body {
+  @apply bg-gray-900 text-white pt-4;
+}
 .container {
   @apply mx-auto;
 }
