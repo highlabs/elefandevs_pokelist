@@ -10,7 +10,7 @@
         />
       </li>
     </ul>
-    <button @click="$emit('carregar-mais')">Carregar mais</button>
+    <button v-show="!loadedAll" @click="$emit('carregar-mais')">Carregar mais</button>
   </section>
 </template>
 
@@ -26,6 +26,10 @@ export default {
     list: {
       type: Array,
       default: () => []
+    },
+    loadedAll: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -33,9 +37,9 @@ export default {
 
 <style lang="postcss" scoped>
 section {
-  @apply w-full px-4;
+  @apply w-full px-4 mb-32;
 }
 button {
-  @apply w-full py-4 bg-gray-500 mb-32 rounded-lg;
+  @apply w-full py-4 bg-gray-500 rounded-lg;
 }
 </style>
