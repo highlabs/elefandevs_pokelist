@@ -2,7 +2,7 @@
   <main class="container">
     <div class="rows">
       <Sidebar :types="types" @load-type="loadPokemonType"/>
-      <Section :list="pokeList"/>
+      <Section :list="pokeList" @carregar-mais="carregarMais"/>
     </div>
   </main>
 </template>
@@ -18,8 +18,10 @@ export default {
   },
   data() {
     return {
+      pokeListFull: [],
       pokeList: [],
-      types: []
+      types: [],
+      numOfPages: 0
     };
   },
   mounted() {
@@ -32,7 +34,9 @@ export default {
       fetch(`https://pokeapi.co/api/v2/type/${type}`)
       .then((res) => res.json())
       .then((res)=>{
-        this.pokeList = res.pokemon;
+        this.pokeListFull = res.pokemon;
+        this.numOfPages = 0;
+        this.carregarMais();
       })
     },
     loadTypes() {
@@ -44,6 +48,15 @@ export default {
           this.types = res.results
         })
         .catch(error => console.error(error))
+    },
+    // Paginação (estilo "load more")
+    carregarMais() {
+      this.numOfPages++;
+      if (this.numOfPages > 0) {
+        this.pokeList = this.pokeListFull.slice(0, this.numOfPages * 5);
+      } else {
+        this.pokeList = this.pokeListFull.slice(0, 5);
+      }
     }
   }
 }
