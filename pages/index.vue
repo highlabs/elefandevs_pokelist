@@ -3,6 +3,7 @@
     <div class="rows">
       <Sidebar :types="types" @load-type="loadPokemonType"/>
       <Section :list="pokeList" :loadedAll="loadedAll" @carregar-mais="carregarMais"/>
+      <Section :list="pokeList" :loaded-all="loadedAll" @carregar-mais="carregarMais"/>
     </div>
   </main>
 </template>
