@@ -1,8 +1,7 @@
 <template>
   <main class="container">
     <div class="rows">
-      <Sidebar :types="types" @load-type="loadPokemonType"/>
-      <Section :list="pokeList" :loadedAll="loadedAll" @carregar-mais="carregarMais"/>
+      <Sidebar :types="types" :selected-type="selectedType" @load-type="loadPokemonType"/>
       <Section :list="pokeList" :loaded-all="loadedAll" @carregar-mais="carregarMais"/>
     </div>
   </main>
@@ -23,7 +22,8 @@ export default {
       pokeList: [],
       types: [],
       numOfPages: 0,
-      loadedAll: false
+      loadedAll: false,
+      selectedType: ""
     };
   },
   mounted() {
@@ -39,6 +39,7 @@ export default {
         this.pokeListFull = res.pokemon;
         this.numOfPages = 0;
         this.loadedAll = false;
+        this.selectedType = type;
         this.carregarMais();
       })
     },
@@ -55,8 +56,6 @@ export default {
     // Paginação (estilo "load more")
     carregarMais() {
       this.numOfPages++;
-      console.log("numOfPages", this.numOfPages);
-      console.log("list length", this.pokeListFull.length);
       if ((this.numOfPages * 5) > this.pokeListFull.length) {
         this.pokeList = this.pokeListFull.slice(0, this.pokeListFull.length)
         this.loadedAll = true;

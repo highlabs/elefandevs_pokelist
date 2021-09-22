@@ -7,7 +7,7 @@
           v-for="type in types"
           :key="type.name"
         >
-          <button @click="$emit('load-type', type.name)">
+          <button :class="{selected: (type.name == selectedType)}" @click="$emit('load-type', type.name)">
             {{type.name}}
           </button>
         </li>
@@ -23,6 +23,10 @@ export default {
     types: {
       type: Array,
       default: () => []
+    },
+    selectedType: {
+      type: String,
+      default: ""
     }
   }
 }
@@ -37,5 +41,9 @@ h1 {
 }
 button {
   @apply rounded-lg px-4 py-2 bg-white text-black mb-4 text-center w-full
+}
+
+.selected {
+  @apply bg-gray-500
 }
 </style>
