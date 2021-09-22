@@ -44,6 +44,6 @@ button {
 }
 
 .selected {
-  @apply bg-gray-500
+  @apply bg-gray-500 text-white
 }
 </style>
