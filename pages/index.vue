@@ -58,6 +58,8 @@ export default {
         })
         .then((res) => {
           this.types = res.results
+          // carrega o primeiro tipo da lista
+          this.loadPokemonType(this.types[0].name)
         })
         .catch((error) => console.error(error))
     },
