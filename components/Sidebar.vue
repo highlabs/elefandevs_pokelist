@@ -3,12 +3,12 @@
     <h1>Pokelist</h1>
     <div>
       <ul>
-        <li
-          v-for="type in types"
-          :key="type.name"
-        >
-          <button :class="{selected: (type.name == selectedType)}" @click="$emit('load-type', type.name)">
-            {{type.name}}
+        <li v-for="type in types" :key="type.name">
+          <button
+            :class="{ selected: type.name == selectedType }"
+            @click="$emit('load-type', type.name)"
+          >
+            {{ type.name }}
           </button>
         </li>
       </ul>
@@ -22,28 +22,28 @@ export default {
   props: {
     types: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     selectedType: {
       type: String,
-      default: ""
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 
 <style lang="postcss" scoped>
 aside {
-  @apply hidden md:w-1/4 md:block
+  @apply hidden md:w-1/4 md:block;
 }
 h1 {
   @apply text-4xl font-bold mb-8;
 }
 button {
-  @apply rounded-lg px-4 py-2 bg-white text-black mb-4 text-center w-full
+  @apply rounded-lg px-4 py-2 bg-white text-black mb-4 text-center w-full;
 }
 
 .selected {
-  @apply bg-gray-500 text-white
+  @apply bg-gray-500 text-white;
 }
 </style>
