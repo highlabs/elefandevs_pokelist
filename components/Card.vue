@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h2>{{name}}</h2>
+    <nuxt-link :to="name">
       <h2>{{ name }}</h2>
 
       <div v-if="pokemon">
@@ -10,6 +10,7 @@
       <div v-else>
         <span>Loading...</span>
       </div>
+    </nuxt-link>
   </div>
 </template>
 
