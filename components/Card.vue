@@ -1,17 +1,50 @@
 <template>
-  <div class="card">
-    <nuxt-link :to="name">
-      <h2>{{ name }}</h2>
+  <nuxt-link :to="name">
+    <div class="card">
+      <div class="profile">
+        <div v-if="pokemon" class="card-header">
+          <h2>{{ name }}</h2>
+          <h4># {{ pokemon.id }}</h4>
+        </div>
+        <div class="card-main" v-if="pokemon">
+          <img :src="pokemon.sprites.front_default" alt="" />
+          <div class="info">
+            <h3>Size:</h3>
+            <p>height: {{ pokemon.height / 10 }} m</p>
+            <p>weight: {{ pokemon.weight / 10 }} kg</p>
+          </div>
+          <div class="info">
+            <h3>Types:</h3>
+            <ul>
+              <li v-for="e in pokemon.types" :key="e.type.name">
+                {{ e.type.name }}
+              </li>
+            </ul>
+          </div>
+          <div class="info">
+            <h3>Abilities:</h3>
+            <ul>
+              <li v-for="e in pokemon.abilities" :key="e.ability.name">
+                {{ e.ability.name }}
+              </li>
+            </ul>
+          </div>
+          <div class="info">
+            <h3>Moves:</h3>
+            <ul>
+              <li v-for="e in pokemon.moves.slice(0, 4)" :key="e.move.name">
+                {{ e.move.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
 
-      <div v-if="pokemon">
-        <img :src="pokemon.sprites.front_default" alt="" />
+        <div v-else>
+          <span>Loading...</span>
+        </div>
       </div>
-
-      <div v-else>
-        <span>Loading...</span>
-      </div>
-    </nuxt-link>
-  </div>
+    </div>
+  </nuxt-link>
 </template>
 
 <script>
@@ -43,9 +76,30 @@ export default {
 
 <style lang="postcss" scoped>
 .card {
-  @apply bg-white text-black mb-4 p-4 rounded-lg;
+  @apply bg-white text-black mb-4 py-4 px-8 rounded-lg;
 }
+
+.card-header {
+  @apply flex flex-row justify-start items-baseline;
+}
+
+.card-main {
+  @apply flex flex-row justify-between;
+}
+
+img {
+  @apply w-28 h-28
+}
+
 h2 {
   @apply text-2xl;
+}
+
+h3 {
+  @apply uppercase font-medium;
+}
+
+h4 {
+  @apply pl-2;
 }
 </style>
