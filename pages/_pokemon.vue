@@ -1,10 +1,16 @@
 <template>
-  <div class="pokePage">
-    <h1>{{ name }}</h1>
-    <div :v-if="imgSrc">
-      <img :src="imgSrc" alt="" />
+  <main class="container">
+    <header>
+      <nuxt-link to="/">
+        <h2>⇦ Voltar</h2>
+      </nuxt-link>
+    </header>
+    <Card :name="pokemon.name"/>
+    <div v-if="pokemon">
+      
     </div>
-  </div>
+
+  </main>
 </template>
 
 <script>
@@ -16,12 +22,14 @@ export default {
       return res.json()
     })
     return {
-      name: pokemon.name,
-      imgSrc: pokemon.sprites.front_default,
+      pokemon,
     }
   },
 }
 </script>
 
 <style lang="postcss" scoped>
+  header {
+    @apply p-4
+  }
 </style>
