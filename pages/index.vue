@@ -1,8 +1,16 @@
 <template>
   <main class="container">
     <div class="rows">
-      <Sidebar :types="types" :selected-type="selectedType" @load-type="loadPokemonType"/>
-      <Section :list="pokeList" :loaded-all="loadedAll" @carregar-mais="carregarMais"/>
+      <Sidebar
+        :types="types"
+        :selected-type="selectedType"
+        @load-type="loadPokemonType"
+      />
+      <Section
+        :list="pokeList"
+        :loaded-all="loadedAll"
+        @carregar-mais="carregarMais"
+      />
     </div>
   </main>
 </template>
@@ -23,8 +31,8 @@ export default {
       types: [],
       numOfPages: 0,
       loadedAll: false,
-      selectedType: ""
-    };
+      selectedType: '',
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -34,38 +42,40 @@ export default {
   methods: {
     loadPokemonType(type) {
       fetch(`https://pokeapi.co/api/v2/type/${type}`)
-      .then((res) => res.json())
-      .then((res)=>{
-        this.pokeListFull = res.pokemon;
-        this.numOfPages = 0;
-        this.loadedAll = false;
-        this.selectedType = type;
-        this.carregarMais();
-      })
+        .then((res) => res.json())
+        .then((res) => {
+          this.pokeListFull = res.pokemon
+          this.numOfPages = 0
+          this.loadedAll = false
+          this.selectedType = type
+          this.carregarMais()
+        })
     },
     loadTypes() {
       fetch('https://pokeapi.co/api/v2/type')
-        .then(res => {
+        .then((res) => {
           return res.json()
         })
-        .then(res => {
+        .then((res) => {
           this.types = res.results
+          // carrega o primeiro tipo da lista
+          this.loadPokemonType(this.types[0].name)
         })
-        .catch(error => console.error(error))
+        .catch((error) => console.error(error))
     },
     // Paginação (estilo "load more")
     carregarMais() {
-      this.numOfPages++;
-      if ((this.numOfPages * 5) > this.pokeListFull.length) {
+      this.numOfPages++
+      if (this.numOfPages * 5 > this.pokeListFull.length) {
         this.pokeList = this.pokeListFull.slice(0, this.pokeListFull.length)
-        this.loadedAll = true;
+        this.loadedAll = true
       } else if (this.numOfPages > 0) {
-        this.pokeList = this.pokeListFull.slice(0, this.numOfPages * 5);
+        this.pokeList = this.pokeListFull.slice(0, this.numOfPages * 5)
       } else {
-        this.pokeList = this.pokeListFull.slice(0, 5);
+        this.pokeList = this.pokeListFull.slice(0, 5)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -77,6 +87,6 @@ body {
   @apply mx-auto;
 }
 .rows {
-  @apply flex flex-row justify-between w-full
+  @apply flex flex-row justify-between w-full;
 }
 </style>

@@ -1,16 +1,13 @@
 <template>
   <section>
     <ul>
-      <li
-        v-for="pokebola in list"
-        :key="pokebola.pokemon.name"
-      >
-        <Card
-          :name="pokebola.pokemon.name"
-        />
+      <li v-for="pokebola in list" :key="pokebola.pokemon.name">
+        <Card :name="pokebola.pokemon.name" />
       </li>
     </ul>
-    <button v-show="!loadedAll" @click="$emit('carregar-mais')">Carregar mais</button>
+    <button v-show="!loadedAll" @click="$emit('carregar-mais')">
+      Carregar mais
+    </button>
   </section>
 </template>
 
@@ -20,18 +17,18 @@ import Card from '~/components/Card'
 export default {
   name: 'Section',
   components: {
-    Card
+    Card,
   },
   props: {
     list: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     loadedAll: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 }
 </script>
 
