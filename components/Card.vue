@@ -56,26 +56,18 @@ export default {
       default: 'Sem some',
     },
   },
-  data() {
-    return {
-      pokemon: null,
-    }
-  },
   computed: {
     movelist() {
       const moves = this.pokemon.moves
       return moves.slice(0, 4)
+    },
+    pokemon() {
+      const pokemon = this.$store.state.pokebola.pokelist
+      return pokemon.find(poke => poke.name === this.name)
     }
   },
   mounted() {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${this.name}`)
-      .then((res) => {
-        return res.json()
-      })
-      .then((res) => {
-        this.pokemon = res
-      })
-      .catch((error) => console.error(error))
+    this.$store.dispatch('pokebola/getPokemon', this.name)
   },
 }
 </script>
