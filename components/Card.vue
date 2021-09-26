@@ -32,7 +32,7 @@
           <div class="info">
             <h3>Moves:</h3>
             <ul>
-              <li v-for="e in pokemon.moves.slice(0, 4)" :key="e.move.name">
+              <li v-for="e in pokemon.moves" :key="e.move.name">
                 {{ e.move.name }}
               </li>
             </ul>
@@ -61,6 +61,12 @@ export default {
       pokemon: null,
     }
   },
+  computed: {
+    movelist() {
+      const moves = this.pokemon.moves
+      return moves.slice(0, 4)
+    }
+  },
   mounted() {
     fetch(`https://pokeapi.co/api/v2/pokemon/${this.name}`)
       .then((res) => {
@@ -85,6 +91,10 @@ export default {
 
 .card-main {
   @apply flex flex-row justify-between;
+}
+
+.info > ul {
+  @apply max-h-24 overflow-y-auto
 }
 
 img {
