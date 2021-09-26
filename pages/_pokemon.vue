@@ -6,23 +6,28 @@
       </nuxt-link>
     </header>
     <Card :name="pokemon.name"/>
-    <div v-if="pokemon">
-      
-    </div>
-
   </main>
 </template>
 
 <script>
 export default {
-  async asyncData(context) {
-    const pokemon = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${context.params.pokemon}`
-    ).then((res) => {
-      return res.json()
-    })
+   async asyncData(context) {
+    const pokeList = context.store.state.pokebola.pokelist
+    const pokemon = pokeList.find(poke => poke.name === context.params.pokemon)
+
+    if (pokemon) {
+      return {
+        pokemon
+      }
+    }
+
+    await context.store.dispatch('pokebola/getPokemon', context.params.pokemon)
+
+    const pokelistFromFetch = context.store.state.pokebola.pokelist
+    const pokemonFromFetch = pokelistFromFetch.find(poke => poke.name === context.params.pokemon)
+
     return {
-      pokemon,
+      pokemon: pokemonFromFetch,
     }
   },
 }

@@ -67,7 +67,9 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('pokebola/getPokemon', this.name)
+    if(this.pokemon === undefined) {
+      this.$store.dispatch('pokebola/getPokemon', this.name)
+    }
   },
 }
 </script>
