@@ -10,8 +10,8 @@ export const mutations = {
 }
 
 export const actions = {
-  getPokemon({ commit }, name) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+  async getPokemon({ commit }, name) {
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then((res) => {
         return res.json()
       })
